@@ -1,0 +1,770 @@
+# Page 1
+
+ae Page No. Se i | \
+<E Ther € : yee. ML, And_Supervised lea ; : |
+| and OW put & to eke Clccurate.’ pyedich ang ‘On
+| new. Ungen claten Testa
+Fam ple a Supervised Learning aye. z
+—+ Spum_clelection -Glassit¥ing emails as "Spam! Or __
+a Se vn" oie = - oe a
+. 4QW. Siperviged:_; Lea ning AWOY RDF it Eee
+= | aia. Alloction Ond Labeling: vd Be
+-| O UO Training. : : =
+=| ev ati ve Adrustinent— Iho in slat Men ack iis
+; | earvoy Thy, 0 yy = evnal moyvamedsevs 4, minimize Hua
+DY 0@ JD (XCD Feo, at Ne yr fol
+ONL } OTO Pye | Q :
+non, &0 a Covaoy { ;
+
+# Page 2
+
+~
+rated Page Nes ot
+a leet Qnd prediejon! Saree
+-. ne ko ee
+: JP-§} Supervised —Leavhilng = see
+SS iN ee a ae eon ee
+[Seo email spam ] ‘spam! , “norspam, J. & |
+= i se ign? The Goal cir > predict —€1 Cam nuaun
+. Niumovicad vValino z ‘
+i iz PLS 2 Hon <j LS ts
+| I Rea ression iin a siasHiad method that fotha ua _|
+fe nea re b 4 ras OD men a RTO nod A)
+sti lee
+ee a eee ee ee bia
+ie ited a Te
+Fees ie arta hae ee eg
+
+# Page 3
+
+Pp Page No. __ fii j
+Dae OCVOO'OO
+
+AA Gy aphical yepresca 4 Sate ee ee
+P 1GHGr,
+a ie : \ * ae
+Pie | ae On Other dso F
+
+OAqaAr f
+—~[_3Y , ,
+
+[res +i saési
+
+p= : - Linris neqat o ¥ESSiG.
+
+{ = = :
+
+= Ems 9 p Bother ih doe Ane |
+Se eee Pek
+
+i oe > z -
+
+ae ee, = Litine g ehonge xis
+
+aa pot sdyaight jo
+
+z av\ae a :
+
+# Page 4
+
+Page No.
+: ath fatiable
+Bens ‘ bakge in se ne A 0 ange,
+> ae oe
+= 0)
+Q16, HOD = e 1
+| DJCUILOH On ; Sipe n Pred 21 ON)
+ea es Part
+5 Davia
+|Reraeeveree or a MODES
+I Geviadhin. > Bae Pacluae 84 Solar? Gf Qevalnw, z
+| @) CleviaHon a Neviadeys i:
+ee a a
+
+# Page 5
+
+“a si PageNo.______ERY "
+Date OO'100/00 \ j
+dake 21 =(Suon product cdeviasors | Suma Sau ‘
+| ufon'r : ; .
+| b 2s pee: The
+S18- [bs # 10) <> 13-95 26698
+| oe <a
+[Ye eae
+Bil wit Sen Re ule,
+Ee pawer
+| we tach 2330. have 28 :lelloy Pyiw*
+| ; Cod CPlesentadtann Be x
+[See gh
+. Op 5 glabh
+o Mw LZ SS
+
+# Page 6
+
+: ~
+em pate CO'OO'09
+dea Senayio yi OU values eon line -o} gra
+ij OuE In Teal’ word old te hor. Valu aan nie]
+ee PR tine_ that pooiat vis tiled outlier. Heat——__»
+: | EE ell ash earession
+—_ | a: u =
+i a Rdgmertal: al apvitam ‘An: ML- that up Used g |
+2A QJ
+: P “Classificition tnsin-
+¥£ Is 0 my}ma A Goal A Lng sHic eq eNO vy tw ‘pred G
+i | nc OJeA ory a en d +e oj belenay »
+Fs = UO U o
+Na | suers a bingry guesHong- : i
+i I we ex Independent cdgtals + Gantinol isos
+: Dependent da rot An. la ‘
+i | Hee the metal cen DeCLa\ = Shaned @ Calla g
+5 | re SGM O\2 Eun ction TO IMG OL he Us- Crag ,
+i : Onda a (ap abil he alo ob O 11> |
+F = | | Proba bhWH4 yy neoy IE preci s Ven" Oberw) 5 8 3
+: ; lf omy OM ge ee
+$e '
+
+# Page 7
+
+Payo No. \ |
+
+pees daw OOVOO/00 \
+
+v be b¢ween § O ond 1. iF
+
+|_valueo}¥—¥ yw mer |
+
+Cpa ree eS otethey oP
+
+Aan ve Wie 4s jaent- Lig LX Inc y cane be Low much |
+
+fc OY eae
+
+[ae ndepmnlentscariabley Ya pnd ne
+= KA Cll elon pe AQ IPPey CLAN)
+
+j O : aa Liss NOK C0 ter
+
+=4 a OB18. >. Pd + hance pa.
+| — =i act yet NOD AMEE IE ery: ——
+
+# Page 8
+
+a :
+i ato No. ee AE
+ee pats CO'OO'0Q
+SE tO] en RR icon Lyereclie Hing — oy]
+eh NCR nearer nejghbors)in-O— Sine eo
+Nn? On 4
+sn P il ee : Predi'g-)_ 3
+“Tigo aoe LO Ach’ on ; ;
+3 6-2 Teele 2. 40 iy erat SEAM On,
+| * Ro ey Aiea $8 : ‘comedy
+E OMG 2 ee nied ise
+| Se 1: Caleulase distant #3 7 ee
+Use Ss Choa Ai LUN \OVinwlo b/w Now mo :
+h owe ne Oty Se : ae
+.
+ze amet =— aoe 80) tC 765) = 46
+| ial ) Red 150 Vow “00 :
+
+# Page 9
+
+| : Page No. __ ft
+| pate OO'00'00
+ee a aS EE
+Ae a ee ae
+AT fo mias_al Chix)? + Oh | a hese
+~ 204 @ _ Nel, Yar = P+ Good] predict
+—jQutte Kt 1 gis supe We BO
+ee y 2
+—traset_2 negate U6q C4HDd
+CAG ~ : Cow ache es meals q
+| Chose arortly. Voling | [Connect | «
+es Pav Ot Super yisecl Leavning ;
+| CD ype adea al se ov) be
+I co iar +i l eee S
+
+# Page 10
+
+~
+5 a, Page No. ____ FR
+eee ce Pence cee | vato OO'00/09
+t AGE. Bayer Class}jication, gare 4
+=| Bae ee _leahing Medihine! ol eee "ize
+naar eden “Belay Bayes’ Thesteo—— i Ma.
+eee ETS .R ——— ieiret 5 eee ae ee
+v= Big comics 9 Reel andl 2. Glan ells ———__
+= } g 2. Centalnn Red _a lat 5
+: - yawn ot Ran a
+al ‘ -
+ES the. prob» that tt ua ida Bare
+0} cee =
+ee
+fot be ei
+[oe ee Av alae
+a
+ae
+ae ee
+
+# Page 11
+
+Page No. ————_——
+Date 00'00'00
+PCI) = OC A) e,\ x PE By — -
+~ = Pog V\ 195 2» 63/23 “4 “
+es a Cee ee
+= needte Jind .
+at oy Xn is wf 2) Thi ving
+i) = = on Tie je vaviab)e js
+eens as ad a eget lOO ME
+PUN LX Vay -- ¥n am.
+
+WAS (Pg erere sce ee ee ee
+Ty ebability ok upper dev not lower erm doy Sais
+Naive bayer Camsite &
+
+- dat . @ the Gin _€oncep D salVe ~one: -yeod 24/42 ‘
+t Ses Han neck Now # soy KA j
+
+# Page 12
+
+EEE ~
+ee Ys ‘ ago No. —___
+Smee | inn Jind wraad) tase COGoee
+Person lavid Flor nae Sieps.0P riot. Prsbabiltys ——__
+TW VET ct severe ven 1) = Ft
+| Noe ON BAY | (ever=.No) = 8/10
+TY :
+— N_¥_]} Stepaz Conditional pvobabillay» ____
+“| N 4
+oa = IN. NY | fs Ma | No
+ee : | [3 ee |
+3 aes
+SE ere eee ae ee ee
+N= 5 a
+ee | POV epi lue avid) = Pie feo) Epona /Veo” Pores
+= P Cale) * Pl Covia).
+7 ELL Lae hs eee ee See ae
+A ae ae ee 2
+Seas cere
+3 (Hu) Ven = B/ Leg “pC cavid yw) = Pluses
+7 ae P(Yenidiuiovid)= sy Ulm . jos oe
+pe cd le A URE
+A hid | ar 0% 19 Ghave camp: 0-13
+7 4
+
+# Page 13
+
+| a \
+| Date OO'00'00
+[ee sed for bot clare icnden, =
+A “pening Leaning Ol goth —y a
+J qncl 163 a am a RN A
+peas je He condluiing
+_L Seu 7 i iS 3 i
+| Suna DS — Ga me
+fuczpky) _fouy| ae )
+| i ‘ .
+iF E
+Root node = h Sig Hing Point , “repyesen he “nt e_ datas :
+* n_. decisi Thee Aldo» entyopyu and. \oimatio geua :
+| nt ORY = Entropy. NO men mae Of _lhapurityy.-clisorder
+- Lit beer teen, gis UF jae Scianes - is — = ns
+i per cee Se aes
+
+# Page 14
+
+ee Page No. ——- Bj
+ee pate OOY00'09
+— als The. decieion tree alms te inode Puta sbag
+: __nocleny invari nocsy winore OL _doser_poinis ~
+= ie belongs: 40 {re _Sanie Sling .
+Pen ates? or question abate fit dane
+fie. ests} j é g
+ae ee SS et ee -_ the=_finat__clecislon Or classification
+>| (oh g cad pure (xe al: ees ia See
+Uv U z -
+ew. 4
+a io aslo gain WEINER Tne expeded" vediticton Luan
+| Casurment> Pept 5 tft ; je tr ae ae
+dite =" entropy (patent) = Weighted Puss@nvopy (ohithven)
+
+# Page 15
+
+: u phe Hot my rTgh ANG = Wena 1
+4 a oO Sunny Co -3 Goat No Normat | St = Stveng - - ‘i
+A> Raing | aed | Le mis OO'OO'0O _ \\ |
+ae Cloudy . — enema =
+> ne > A qudial_techoique Used An Shi Pligg ce ___|F
+TUURIRY"™ iecision Wee by —“‘ftinoving _unn écassoney
+*Fyquches and Mod@h. se
+The crimary Purpose ia te_picvent. loverfiting) _
+—— 2 cere aaa SS ee
+a Gene ee ae
+p | . 0 a
+fg ete ae es eae
+a Igy Mi : oie th Y
+. No TST ghey ae
+Re M : We ey,
+ra We a POUR = 4 Nine -
+. | ye a nt Ta mdon aan ’ ey ch have. Nigh
+
+# Page 16
+
+a =! , Date 00'00:090
+
+Fe Qe S Sua - ire dada set_j—— ’
+
+S eps] ?_Sotvopyy 4 ent ive _dadaser; pata
+6 45 Tow many Ya ond ©, _useg -C)-gev Yes aid
+: au suk aft NO ct ee ee ae
+LS : lene fr 4) —> Yeo and (5 )—> Now
+=
+Ss Ff } YS ee YIM }
+Eerie ac negate Vig
+. Wee =| entVo i Roin = $73,- Le 0-975 bi
+a ee CE ET ck se ae
+t Pate eal See 7
+: oS Sa a
+
+# Page 17
+
+y Pago No. EDA \"
+14 Ter Pate OO'00'00 \q
+sR Sn YD. R= 2 Soq 2-.g+
+Tey $ Gnwvopyg Hot S42-24 = Fog Gs aki
+Rea 6 ee rene |
+“Supt Enbvopyy Cold S4aj-Lh= —or§) __
+5 eS ee ee
+{ «OH Abia 9135, Lae
+| Toloyma¥on qain= q-q4— Hot — 6 EneCosy —
+| {HM |u
+
+ed EAT eee ee
+
+\ = U = ae
+
+| bio) 4 Givong $43. 23% 2 \-0
+
+# Page 18
+
+SRNR reenact rar cr rT _
+ae pate Co Keres
+a a Letra reali eiatin
+ae See PR by-2 42 0-81 — haa Pg
+[ Tgutmatten gain = 0604 FG
+i ne een ee
+WCorclusion : Raat node 7 Wedshes ai
+. | R on’ Mayi mun—Tajovenas or §)0uin —————
+to z Fi ygere 8 kale. Oe Peds | av fo Lote nese
+| ee ee Tree g\ given table
+ae ee Ee V amy
+i | Step: Calcutoxe onthe basis ¢4 Somy [bez HHhave _
+f | ; $i (both Veoqnd (Vo
+
+# Page 19
+
+: Vago No. - Ww \
+(ence ON «| SE AER
+P + - - fi a Se ns Yoo +
+| Now _stduulaie jhe _¢nivapy of sntine clata Seon Hae ___
+2 if edhe 22, oO =,
+Op ‘fold 844, ~04= Oo ope.
+le @ 4 . = q if mM On vi " -
+H+YOD Veli MP. 0: :
+| 8 $5 Mild 44-1 “ , ae P
+ae 154 . 3 , ie cs . z it
+| gees O54% TS oo
+tale Wot eH = ‘sei a
+| Q Sohny Win = 0-014 3 ait te |
+
+# Page 20
+
+he tage Now
+
+2 tethy ag fSeasher.. Ths pevdore _Huinval ty : — mf Maso
+ES bon Oo id Not We gi
+ee | Ra iv Co ul ON 9 cs ee
+10 Fla an, We _—_—
+ee EG es
+
+om I a M a ae
+sen ‘a ale same you coltuldie Table 3 ————————__
+soe ‘ feencd Se Sat OOO Ps at TO ee ee
+- >| ES Spivopy Rain $P3,-24= 0-9
+c_. a
+eA | -eakes Ge) Hot 8 POOR O yee re pe ew
+eer : Fdtro ua Cold Seayeey se Oe 1 er et
+
+pit eyqpevalive, fe 8 ee
+a | OME“ OSSOMOVE a oe Rk Ue a ee
+
+# Page 21
+
+* zee m
+bid pate OD'OO'OO \
+oe ~
+ee ss — ss ' 2 ces
+} SS are ‘ns j
+7 Stele) = BL 7
++ ees 1 ! e in
+— Pia good calle ing Abdel
+{ F — Pars dems i ap
+Rey a tw HOS Appear. —s Ase a= -PQ/ 2.
+| oeO_ Shows ead —> PA)e) sapiciie
+
+# Page 22
+
+: Page No.
+PA i _multioe lenin (algo: te_abin tater >
+= ji pred &Y pero aa) i a :
+. | jh mov le check ?
+a [ee oe a |
+a = -
+oes | Pep (4 Ensemble heavning #5 Suber ;
+a = | BootStyup “iqgaveaatnan | Baga et ir qkskaee
+; | Nu OU Ged
+
+# Page 23
+
+. Haye Ne. (tA
+Dae OOO OC)
++ sng C Bmisue Raprganng)
+vane in parade —____—
+: Tae ‘ ‘4 F cals eat | . ‘ .
+aie * datevent\= Thi ; me E
+— 3 Hegitsn: Averaging the pedictions.
+| x oe
+Ro rts
+GUL AKO dined = ia wr a
+Lod Orin 0 Wy Gd the OH
+eee Gkeque, &, ee : ea,
+\e we Pa \ AEM. mMactol ate Lined On .caynecing
+i Aner: No AE NV OVE. Made. bu th aves star
+3 lity fon Pain cnt. eve. = LAfed a
+| ASD oo LanecC Kiake: SU ed =
+; i ~ SOLA a hy 7 ei Why) = ate Sees ——
+
+# Page 24
+
+E ws Page No. —— fh
+
+i 3 Date 0000;
+
+: nadion s Preelicilong ont cambined
+
+. —Nikig hed —c.stengt —
+
+se Losoa lMTE Z OE i Le Te ee
+
+— “Geral To Ved stro biag_and durn woh lenviney indo,” NE ahi
+
+B Pe reer
+
+aE =| elt! Examples + Ada Roos} _Cya dient Gasstin, Machine {G i
+
+ey - 4 Prag .
+
+aoa OCKing | SiaCed enrvalizaxion ee fies tie
+
+= © | PYACOM + \sen S aHons Of moctoly: ~ baxe merblsand-
+
+ar motes et s =. Aneto =-moda -
+
+id ; Data & Aalegus | Bist atti v-Ch ies 6 : pia se
+
+oc eee | Tyain eveval «diverse base. /mocaly: C450 Neci sjo A
+
+f ee, And, ogish ag mion ) - 3
+
+a | e the predictions, yam Phone ‘Hane Mockals Ay pre >
+| ROU eo un qotg cinal eran, VON) model
+
+-| erobinavisn 2 “The “meta <macte) = Joana | tne cpimal
+
+5 é y Li pes Ua Ia -eAmo}ne tho Enne, Ovedicio ny
+
+i “| f (h Th a Se i li EM e nes AiR =U: ee Igsng
+
+-, pNe va oH <I CUMCTE Fi ries = AID :
+
+# Page 25
+
+eh Ce a ee
+O. —= ei
+= | (3 2 : Ros K wee kes
+k =s— HES Se
+: =,
+ie = ae = : Eucli ire anit
+teak x OWS Ved VALuL A
+
+# Page 26
+
+- . Here; (Cy 20,600 4 Cnbroid angQe(3 07800) 5 heey
+| SY Gas Wo) tooo) 17” ne COGS
+—_——. Gd G3 _=20)? +@00 = 500) A
+4 j Ach pliant, taste “Len VoWIdbd) ee
+SG = 2s Gs et -
+
+og ee 5 { pts ioufert ee aS
+
+a ea Ly ev il pe, = Bie
+OTE Pe ae ea IE! SE pe
+
+5 4 Dmt= (5 00 4:200)/2°4 Yes as #
+: New RT= C15, y 60). ae
+
+# Page 27
+
+a iy
+‘ itace, ‘a = ————_ {i
+
+3 <n C2, CU OG Case na ‘te ra
+4 i — Cee ee ee eel a oR ee .
+ee ~ Cho tortgr2 7 4S ie, tee
+Ta. C1aon 1 904 1290 + 140, AB) fio =' JZ
+a ee ae ee ee ee
+
+Laz (14 yoo . A8S* 6y2uu) oF,
+
+# Page 28
+
+oe s Page No. —
+2 re CChiCA CU
+2a ee : i [uined $i
+eg galt a_i ine ga Sey nor
+|
+é |
+| Ta Hiere vchical “elim dering —
+> Ni visi [top — down
+| Aag)ome votives is ae:
+5 Ara logy = raring _wi dividual lea STi
+| and rriging ther Aogethey bjgq ev
+S " a:
+to er a ]e 0 ont Os ak pun
+2 Re pen paeyvge Hi two an aun ‘Luter
+Dowd oO distanes i -4- Sciclidea Clist-.). =
+
+# Page 29
+
+— Page No.___ BS \
+Date CO'O0/00 \
+— seraing until A de
+AX yt WeVgtd— ; the re ae” a a aa
+a gontnue “he York g| 4 3
+4 © :
+T v7 }a. to: Unde:
+i! *
+Analagy: Star th ahe_loy n Yeaking t+
++2 ite ll desig ee
+! i 2
+{ —Wars4” i
+She ee
+~ONYn ye Ol a = eee
+eLa oy Sy te south. oe
+2| evan V ORE1Dg Condition is map.
+| viata the top ;
+= Ls 3 en ~
+; G AY\e Ova. :
+D Weaa AYU NS i De
+peat gy ey ih an ae Ste es
+pe A ive: ~ AAI b Py!
+4 | ; “ing on 5 ee = eSports
+
+# Page 30
+
+\ iva ie coco!
+ane inkage Eo eer diene
+3 ie ts _daljne
+= = ‘Ais fa) : ; ;
+= re ev and ony Single print tn he cand
+| esa rte Sample X my :
+| nor, uw 3 i :
+“| Sm. } 4
+Be eS a © eR
+| cae ae
+z HAdgenricl Qeoyy2 ¢ (yyy igh Leligon¢ b)utqur
+| ; Points =
+ees Ee an eee eee
+a 22 Sal OO" Ry 28 Sg oy BED
+ee ae Poy O- ebb. We BOR ibys
+
+# Page 31
+
+Ven Lose bea San
+
+a | CT ect Scam gO ia. ee CC
+
+| | ik (Sa 1S9)- omer
+
+| | Now new marys. u
+
+| § J O26 QQVoUG 6:32 NOW COmMbin se:
+
+; = QO 246 44? 72:03,.¥ S448 “ :
+
+2 aera Oo 1403 0-4 = 8252 4
+
+al bee oe u :
+force, sis. Sa ange
+
+ray , WED)
+
+# Page 32
+
+eee a8 et
+oe —— ing BB yg tha
+Fe aut nea ie
+: | =e gg Hi tf OO and 7 >
+i rhe _cwciat_ Ag Mg oe a) bse
+; [ ) , b {a4 ont _ 1D 4
+Sonne RES oer or ee 1
+[ee ogo oe
+my eareree ke saben
+
+# Page 33
+
+Nowe an mnqtae Ki clistance Sikh rhe ey "
+mt Ash iscopyerl: ea ea Martin 93
+E aaa Sor CEN
+i fei | b a ,
+: ee a — hapa [Gaga 2h
+a _——— zt —_——
+=
+
+# Page 34
+
+Ce ™~
+a : ae : Bate OO'OO'00.
+eo eda Ls_Aluniing_ab.o._paatslontcg 9
+2 Gnd. improveme con the eupilac X-fhean Akay
+z SR Oy rod \4 ‘ba wl 00H a dais alors Ob — ) beh
+1 | Goal 's _To-9 rob _clata tn in A pvedained nt aeies o
+= ~ + -- Clubs, 4 “mp re Romeann
+es | DiVerena A ort B-meamae ED a oa
+2 a L = means 3. Uses am tm dinar Comtvard Cthe mvevagt-
+: iad | K- Mea olds: €8 an actual do _point ified ie edold.
+I Pia —rht dary that ube. CMs Vv0 bs QU others
+2 n m+ 4¥Oup - / ‘ :
+i 1 Pigorithm. PAM [ Parito a Around Med adele
+: zs :
+
+# Page 35
+
+= ee
+
+7 Q o Zr GS
+
+E aaHicid 5 s : ae; cS
+
+Php nse 2 vardo centric, » 0 ‘huse Dy ds
+
+ae eae
+
+: (=e. aoe
+
+eile “hy 05,03) ‘ane Oz», Da) —~ 10k es
+
+a eee atone 2a
+S| Siena ly app's oral sp, apne a
+
+# Page 36
+
+bic 2 - ot DCR
+, | = ae resi 4 4) $ +r ge a tt
+; oe Serr ee es
+iy amp = ames | SO
+see ee eee
+- neuen’: — Cost= 33; a
+ee re ,
+Nes Ihe + 2A ONE ee Be ope at a =
+[. OL: Jade War Onn 1 Ao tat ~ he k opoie 2 Q wi
+|
+Oxia lie GY Deer, See oe ee z
+
+# Page 37
+
+, [> wnedoid :
+Sa a dale
+fe re asl Se lan Page Pet
+tie le ae
+pe Cae ak
+ee |
+ae eee ee at ee rer
+eo — uae
+fo i alan :
+ee ee ie
+—; Reapent prea unl Yc “get “recto with lowers
+fe ae CAs Ong the MALP UT aye’ + ‘AA b ;
+
+# Page 38
+
+se a eee __Algariim ar =
+a Mpulay__and_ email _emsemb\e— yung
+- mebpais: “T) yoy» —_ bg Bulle Lng Oe ee
+Te OTR a ee
+: | Neu Joost: Trbxnclucn ch lees toe all —
+. : ls Fa cong vondow =
+, HOOTS Opp n3 ae as a Ti :
+S| gardorn Jo tes15 Correds jar _deasion Aweap Ungbye of
+5 4 OVES iting tsthela _dralning Ser- ——
+fy !
+B. | by Ran Pi sing clata C Yeoetihon :
+é Step2! Cyeer Rondatiyged detigontteee jvorn
+: ¥ Rang eD T+ db menaung x ES ee 7 c
+. : y A dlgtia neh 2S ee SS Hiapersion— eee
+
+# Page 39
+
+Page No. ani TY
+es kenene mes sibility Oe COVOOV00
+_ Standard Devioton VS Vaviane
+Navienct vino Whtaalit Gf Wi Spreid_or_dinpession
+avesage Gt the 9uah Lie Him
+eect cc ee a
+ue " | ) fila
+>buy t 1 10))1 3 nen, = =7
+al ”
+ee = 25 = =
+“dd Hist obra iB ord deviawion = —DNovians = ola? = se
+4 aaNet ae Ane
+(A ~ <
+[foe ToD devia 6
+\ 2s B+ gw '3 ie
+{| + i SS =< NK
+|
+
+# Page 40
+
+——§} Gessieatise Fy Bags
+aes agisHe_Resyessten = near Bagtnen —_
+Lee j “Litenm cesT = Lan Better
+: | Tn bath a Hiuabl owt Aig) C Aw a = : !
+: oll Random Foren} = eee :
+: 4 K—Neanas Neigh bax | Qo) ees es
+mas (ee = 3
+| NB Scam -Clus
+|
+
+# Page 41
+
+ree . Foe, —_—_08
+: ce etna a OE A eo
+office Saige igh
+ere S
+| Qiep 2% EAnttsdetc xdin fond hoasn en = -
+| Step2: oliulak Tota (Of é. |
+= Shep 6 Updat Insdoncg welgh Nw)
+fad wright € €%|
+yoht | 4/ total no 2
+|} €y Tayanle is E
+= loso 450 me
+3 ies Ue So [5 {0-20,
+Ss ae a ee ~
+er. ee
+he was
+Tepe Tne 38 Tena aves ero US? =
+ee a ee
+—— area = eR E
+ZS ape rere ie ht ee
