@@ -8,6 +8,7 @@ import {
   reindexAllNotes,
   syncNoteEmbeddings,
 } from "./rag.js";
+import { searchWeb } from "./web-search.js";
 
 const app = express();
 
@@ -224,6 +225,22 @@ app.post("/api/chat/query", async (req, res, next) => {
   }
 });
 
+app.post("/api/search/web", async (req, res, next) => {
+  try {
+    const searchQuery = typeof req.body?.query === "string" ? req.body.query.trim() : "";
+    const limit = Math.min(Number(req.body?.limit) || 5, 10);
+
+    if (!searchQuery) {
+      return res.status(400).json({ error: "query is required." });
+    }
+
+    const searchResult = await searchWeb(searchQuery, limit);
+    return res.json({ data: searchResult });
+  } catch (error) {
+    return next(error);
+  }
+});
+
 app.post("/api/chat/reindex", async (req, res, next) => {
   try {
     const expectedKey = process.env.CHAT_REINDEX_KEY?.trim();
@@ -360,6 +377,8 @@ app.put("/api/notes/:id", async (req, res, next) => {
       return res.status(400).json({ error: errors.join(" ") });
     }
 
+    const hasResources = hasOwn(req.body || {}, 'resources');
+    
     const result = await query(
       `
       UPDATE notes
@@ -371,7 +390,7 @@ app.put("/api/notes/:id", async (req, res, next) => {
         note_type = COALESCE($6, note_type),
         starred = COALESCE($7, starred),
         is_pinned = COALESCE($7, is_pinned),
-        resources = COALESCE($8, resources),
+        resources = CASE WHEN $10::boolean THEN $8 ELSE resources END,
         history = COALESCE($9, history)
       WHERE id = $1
       RETURNING
@@ -389,6 +408,7 @@ app.put("/api/notes/:id", async (req, res, next) => {
         fields.starred ?? null,
         fields.resources ?? null,
         fields.history ?? null,
+        hasResources,
       ],
     );
 

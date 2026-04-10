@@ -1,8 +1,8 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FiBold, FiItalic, FiCode, FiList, FiChevronLeft, FiStar,
-  FiClock, FiSave, FiPlay,
+  FiClock, FiSave, FiPlay, FiEye, FiEdit, FiX,
 } from 'react-icons/fi';
 import { useStore } from '../store/useStore';
 
@@ -37,6 +37,24 @@ export default function NoteEditor() {
   const [language, setLanguage] = useState('English');
   const [showHistory, setShowHistory] = useState(false);
   const [status, setStatus] = useState('');
+  const [editorMode, setEditorMode] = useState('read');
+  const [localResources, setLocalResources] = useState([]);
+
+  // Load local resources from localStorage when activeNote changes
+  useEffect(() => {
+    if (!activeNote) {
+      setLocalResources([]);
+      return;
+    }
+    const localStorageKey = `nh_resources_${activeNote.id}`;
+    try {
+      const stored = localStorage.getItem(localStorageKey);
+      const resources = stored ? JSON.parse(stored) : [];
+      setLocalResources(Array.isArray(resources) ? resources.filter(r => typeof r === 'string') : []);
+    } catch {
+      setLocalResources([]);
+    }
+  }, [activeNote?.id]);
 
   async function handleCreateFirstNote() {
     const created = await addNote();
@@ -81,8 +99,6 @@ export default function NoteEditor() {
     () => (activeNote?.history || []).slice().reverse(),
     [activeNote?.history],
   );
-
-  const resources = Array.isArray(activeNote?.resources) ? activeNote.resources : [];
 
   function updateCurrentNote(changes, options = {}) {
     if (!activeNote) return;
@@ -164,13 +180,31 @@ export default function NoteEditor() {
     updateCurrentNote({ content: next }, { touchUpdatedAt: false, trackHistory: false, persist: false });
   }
 
-  function addResource() {
+  async function addResource() {
     if (!activeNote) return;
     const url = window.prompt('Paste resource URL');
     if (!url || !url.trim()) return;
-    const current = Array.isArray(activeNote.resources) ? activeNote.resources : [];
-    updateCurrentNote({ resources: [...current, url.trim()] }, { touchUpdatedAt: false, trackHistory: false, persist: true });
-    setStatus('Resource attached.');
+    
+    const newUrl = url.trim();
+    if (localResources.includes(newUrl)) {
+      setStatus('⚠ Resource already exists.');
+      return;
+    }
+
+    const updated = [...localResources, newUrl];
+    const localStorageKey = `nh_resources_${activeNote.id}`;
+    localStorage.setItem(localStorageKey, JSON.stringify(updated));
+    setLocalResources(updated);
+    setStatus('✓ Resource saved locally.');
+  }
+
+  async function removeResource(resourceUrl) {
+    if (!activeNote) return;
+    const updated = localResources.filter(url => url !== resourceUrl);
+    const localStorageKey = `nh_resources_${activeNote.id}`;
+    localStorage.setItem(localStorageKey, JSON.stringify(updated));
+    setLocalResources(updated);
+    setStatus('✓ Resource removed.');
   }
 
   function openInKB() {
@@ -205,13 +239,15 @@ export default function NoteEditor() {
   }
 
   return (
-    <div className="page" style={{ overflow: 'hidden' }}>
+    <div className="page note-editor-page">
       <div className="editor-topbar">
         <input
           className="editor-title-input"
           value={title}
           onChange={handleTitleChange}
           placeholder="Note title..."
+          disabled={editorMode === 'read'}
+          style={{ opacity: editorMode === 'read' ? 0.7 : 1, cursor: editorMode === 'read' ? 'default' : 'text' }}
         />
         <div className="editor-tags">
           {(activeNote?.tags || []).slice(0, 3).map(tag => (
@@ -222,12 +258,14 @@ export default function NoteEditor() {
             value={selectedFolder}
             onChange={handleFolderChange}
             title="Note folder"
+            disabled={editorMode === 'read'}
+            style={{ opacity: editorMode === 'read' ? 0.7 : 1, cursor: editorMode === 'read' ? 'default' : 'pointer' }}
           >
             {folderOptions.map(folder => (
               <option key={folder} value={folder}>{folder}</option>
             ))}
           </select>
-          <button className="btn btn-ghost btn-sm" onClick={handleCreateFolder}>+ Folder</button>
+          <button className="btn btn-ghost btn-sm" onClick={handleCreateFolder} disabled={editorMode === 'read'}>+ Folder</button>
         </div>
         <select className="editor-lang-select" value={language} onChange={event => setLanguage(event.target.value)}>
           <option>English</option>
@@ -235,7 +273,25 @@ export default function NoteEditor() {
           <option>French</option>
         </select>
         <span className="saved-badge">{savedLabel}</span>
-        <button className="btn btn-primary btn-sm" onClick={handleSave}>
+        <div className="editor-mode-toggle" role="group" aria-label="Editor mode">
+          <button
+            className={`btn btn-sm editor-mode-btn ${editorMode === 'read' ? 'btn-primary' : 'btn-ghost'}`}
+            onClick={() => setEditorMode('read')}
+            title="Read Mode"
+            style={{ display: 'flex', alignItems: 'center', gap: 6 }}
+          >
+            <FiEye size={13} /> Read
+          </button>
+          <button
+            className={`btn btn-sm editor-mode-btn ${editorMode === 'write' ? 'btn-primary' : 'btn-ghost'}`}
+            onClick={() => setEditorMode('write')}
+            title="Write Mode"
+            style={{ display: 'flex', alignItems: 'center', gap: 6 }}
+          >
+            <FiEdit size={13} /> Write
+          </button>
+        </div>
+        <button className="btn btn-primary btn-sm" onClick={handleSave} disabled={editorMode === 'read'}>
           <FiSave size={13} /> Save
         </button>
         <button
@@ -280,7 +336,7 @@ export default function NoteEditor() {
             {folders.map(folder => (
               <div className="workspace-folder" key={folder.name} onClick={() => navigate(`/explorer?q=${encodeURIComponent(folder.name)}`)}>
                 <div className="workspace-folder-dot" style={{ background: folder.color }} />
-                <span>{folder.name}</span>
+                <span className="workspace-folder-name" title={folder.name}>{folder.name}</span>
                 <span className="workspace-folder-count">{folder.count} notes</span>
               </div>
             ))}
@@ -316,16 +372,16 @@ export default function NoteEditor() {
           </div>
 
           <div className="editor-toolbar">
-            <button className="toolbar-btn" title="Bold" onClick={() => applyInline('**', '**')}>
+            <button className="toolbar-btn" title="Bold" onClick={() => applyInline('**', '**')} disabled={editorMode === 'read'}>
               <FiBold size={13} />
             </button>
-            <button className="toolbar-btn" title="Italic" onClick={() => applyInline('*', '*')}>
+            <button className="toolbar-btn" title="Italic" onClick={() => applyInline('*', '*')} disabled={editorMode === 'read'}>
               <FiItalic size={13} />
             </button>
-            <button className="toolbar-btn" title="Code" onClick={() => applyInline('`', '`')}>
+            <button className="toolbar-btn" title="Code" onClick={() => applyInline('`', '`')} disabled={editorMode === 'read'}>
               <FiCode size={13} />
             </button>
-            <button className="toolbar-btn" title="List" onClick={applyList}>
+            <button className="toolbar-btn" title="List" onClick={applyList} disabled={editorMode === 'read'}>
               <FiList size={13} />
             </button>
             <div className="toolbar-sep" />
@@ -349,10 +405,13 @@ export default function NoteEditor() {
                   lineHeight: 1.6,
                   color: 'var(--text-primary)',
                   paddingBottom: 40,
+                  opacity: editorMode === 'read' ? 0.8 : 1,
+                  cursor: editorMode === 'read' ? 'default' : 'text',
                 }}
                 placeholder="Start typing your note here..."
                 value={content}
-                onChange={handleContentChange}
+                onChange={editorMode === 'read' ? undefined : handleContentChange}
+                readOnly={editorMode === 'read'}
               />
             )}
             {activeTab === 'Preview' && (
@@ -402,7 +461,7 @@ export default function NoteEditor() {
                 ))}
 
                 <div className="context-section-title">Quick Actions</div>
-                <button className="quick-action-btn" onClick={addResource}>Attach Resource</button>
+                <button className="quick-action-btn" onClick={addResource} disabled={editorMode === 'read'}>Attach Resource</button>
                 <button className="quick-action-btn" onClick={openInKB}>Link to KB</button>
               </>
             )}
@@ -423,19 +482,29 @@ export default function NoteEditor() {
                 </div>
 
                 <div className="context-section-title">Resources</div>
-                {resources.length === 0 && (
+                {localResources.length === 0 && (
                   <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>No resources attached yet.</div>
                 )}
-                {resources.map(link => (
-                  <a
-                    key={link}
-                    href={link}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{ display: 'block', fontSize: 11, color: 'var(--accent)', marginBottom: 6, wordBreak: 'break-all' }}
-                  >
-                    {link}
-                  </a>
+                {localResources.map(link => (
+                  <div key={link} style={{ display: 'flex', alignItems: 'flex-start', gap: 6, marginBottom: 8, padding: '6px 8px', background: 'var(--surface)', borderRadius: 4 }}>
+                    <a
+                      href={link}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ flex: 1, fontSize: 11, color: 'var(--accent)', wordBreak: 'break-all', textDecoration: 'underline' }}
+                    >
+                      {link}
+                    </a>
+                    <button
+                      className="icon-btn"
+                      onClick={() => removeResource(link)}
+                      title="Remove resource"
+                      style={{ flexShrink: 0, color: 'var(--text-muted)', opacity: 0.6 }}
+                      disabled={editorMode === 'read'}
+                    >
+                      <FiX size={12} />
+                    </button>
+                  </div>
                 ))}
               </>
             )}

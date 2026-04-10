@@ -12,7 +12,7 @@ import {
 } from 'react-icons/fi';
 import { useStore } from '../store/useStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://notehive-backend-wi97.onrender.com';
 const KB_CHAT_STORAGE_KEY = 'nh_kb_chat_messages';
 const scopeFields = ['Titles', 'Content', 'Code Blocks', 'Questions'];
 const filterPills = ['Recent', 'Important', 'Has Code', 'Has Questions'];
@@ -148,6 +148,7 @@ export default function KnowledgeBase() {
   const [messages, setMessages] = useState(() => loadStoredMessages());
   const [status, setStatus] = useState('');
   const [chatLoading, setChatLoading] = useState(false);
+  const [useWebSearch, setUseWebSearch] = useState(false);
   const [scopes, setScopes] = useState({
     Titles: true,
     Content: true,
@@ -256,7 +257,8 @@ export default function KnowledgeBase() {
     setStatus('');
 
     try {
-      const payload = await apiRequest('/api/chat/query', {
+      // Always search internal notes first
+      const internalPayload = await apiRequest('/api/chat/query', {
         method: 'POST',
         body: JSON.stringify({
           message: text,
@@ -265,17 +267,57 @@ export default function KnowledgeBase() {
         }),
       });
 
-      const assistantMessage = buildAssistantMessage(payload);
+      const assistantMessage = buildAssistantMessage(internalPayload);
+      let finalText = assistantMessage.text;
+      let hasInternalMatch = (assistantMessage.citedNotes || []).length > 0;
+
+      // If no internal notes matched OR web search is enabled, search the web
+      if (useWebSearch || !hasInternalMatch) {
+        try {
+          const webPayload = await apiRequest('/api/search/web', {
+            method: 'POST',
+            body: JSON.stringify({
+              query: text,
+              limit: 5,
+            }),
+          });
+
+          if (webPayload?.data?.ok && webPayload.data.results?.length > 0) {
+            const webResults = webPayload.data.results
+              .map((r, i) => `${i + 1}. **${r.title}** (${r.url})\n   ${r.snippet}`)
+              .join('\n\n');
+            
+            if (hasInternalMatch) {
+              // If we have internal notes, show both
+              finalText = `${finalText}\n\n---\n\n**Web Search Results:**\n${webResults}`;
+            } else {
+              // If no internal notes, show web results as main answer
+              finalText = `**Web Search Results for "${text}":**\n\n${webResults}`;
+            }
+          } else if (!hasInternalMatch) {
+            // No internal match and no web results
+            finalText = `No results found for "${text}". Try searching with different keywords.`;
+          }
+        } catch (webError) {
+          if (!hasInternalMatch) {
+            finalText = `Could not find information about "${text}". Please try rephrasing or searching with different keywords.`;
+          }
+          console.warn('[KB] Web search failed:', webError.message);
+        }
+      }
+
+      assistantMessage.text = finalText;
       setMessages(prev => [...prev, assistantMessage]);
-      setStatus(
-        assistantMessage.source === 'internal'
-          ? 'Answer generated from internal notes.'
-          : 'No strong internal match. Fallback AI response shown.',
-      );
+      
+      if (hasInternalMatch && useWebSearch) {
+        setStatus('Answer from notes and web search.');
+      } else if (hasInternalMatch) {
+        setStatus('Answer from your internal knowledge base.');
+      } else {
+        setStatus('Answer from web search.');
+      }
     } catch (error) {
       const errorText = String(error.message || '').trim();
-      const lower = errorText.toLowerCase();
-      const isQuotaError = lower.includes('429') || lower.includes('quota') || lower.includes('rate limit');
 
       setMessages(prev => [
         ...prev,
@@ -283,19 +325,13 @@ export default function KnowledgeBase() {
           id: `assistant-error-${Date.now()}`,
           role: 'assistant',
           source: 'fallback',
-          text: isQuotaError
-            ? 'External AI quota is exhausted. I can still answer from your internal notes if relevant matches are found.'
-            : `Chat request failed: ${errorText}`,
+          text: `Chat request failed: ${errorText}`,
           citedNotes: [],
           relatedNotes: [],
           actions: [],
         },
       ]);
-      setStatus(
-        isQuotaError
-          ? 'OpenAI quota exceeded. Internal-note answers remain available.'
-          : 'Could not reach chat backend.',
-      );
+      setStatus('Could not reach chat backend.');
     } finally {
       setChatLoading(false);
     }
@@ -549,7 +585,11 @@ export default function KnowledgeBase() {
               <div className="chat-msg">
                 <div className="chat-avatar">N</div>
                 <div className="chat-bubble">
-                  <span style={{ color: 'var(--text-muted)' }}>Thinking over your internal notes...</span>
+                  <span style={{ color: 'var(--text-muted)' }}>
+                    {useWebSearch 
+                      ? 'Searching your notes and the web...' 
+                      : 'Searching your internal notes...'}
+                  </span>
                 </div>
               </div>
             )}
@@ -563,6 +603,14 @@ export default function KnowledgeBase() {
               onChange={event => setChatInput(event.target.value)}
               onKeyDown={event => event.key === 'Enter' && sendMessage()}
             />
+            <button 
+              className={`btn btn-sm ${useWebSearch ? 'btn-primary' : 'btn-ghost'}`}
+              onClick={() => setUseWebSearch(!useWebSearch)}
+              title="Toggle web search"
+              style={{ whiteSpace: 'nowrap' }}
+            >
+              {useWebSearch ? '🌐 Web ON' : '🌐 Web OFF'}
+            </button>
             <button className="btn btn-primary" onClick={sendMessage} disabled={chatLoading}>
               <FiSend size={13} /> Send
             </button>

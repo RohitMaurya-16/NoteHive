@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FiPlus, FiCalendar, FiFilter, FiStar, FiPaperclip,
-  FiEdit2, FiMoreHorizontal, FiFeather, FiArchive, FiSearch,
+  FiEdit2, FiMoreHorizontal, FiFeather, FiArchive, FiSearch, FiExternalLink,
 } from 'react-icons/fi';
 import { useStore } from '../store/useStore';
 
@@ -202,6 +202,16 @@ export default function StickyBoard() {
           ))}
         </select>
         <button className="btn btn-ghost btn-sm" onClick={handleCreateFolder}>New Folder</button>
+
+        <button 
+          className="btn btn-primary btn-sm" 
+          onClick={() => window.open('https://dsa-notes-vault-20260317.netlify.app/', '_blank')}
+          title="Open DSA & Code Notes Vault"
+          style={{ marginLeft: 12, display: 'flex', alignItems: 'center', gap: 6 }}
+        >
+          <FiExternalLink size={14} />
+          DSA Notes Vault
+        </button>
       </div>
 
       {status && (

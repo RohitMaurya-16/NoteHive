@@ -392,6 +392,10 @@
 .note-action-btn.primary:hover { background: var(--accent-light); }
 
 /* Note Editor */
+.note-editor-page {
+  overflow: hidden;
+}
+
 .editor-layout {
   display: flex;
   flex: 1;
@@ -402,8 +406,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 0 16px;
-  height: 52px;
+  padding: 8px 16px;
+  min-height: 52px;
+  flex-wrap: wrap;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
@@ -419,7 +424,7 @@
   min-width: 0;
 }
 .editor-title-input::placeholder { color: var(--text-muted); }
-.editor-tags { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+.editor-tags { display: flex; align-items: center; gap: 5px; flex-shrink: 0; flex-wrap: wrap; }
 .editor-lang-select {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -429,6 +434,26 @@
   color: var(--text-secondary);
 }
 .saved-badge { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+.editor-topbar .btn,
+.editor-topbar .editor-lang-select,
+.editor-topbar .saved-badge {
+  flex-shrink: 0;
+}
+.editor-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.editor-mode-btn {
+  border: 0;
+  border-radius: 0;
+}
+.editor-mode-btn + .editor-mode-btn {
+  border-left: 1px solid var(--border);
+}
 
 .editor-workspace {
   width: 180px;
@@ -461,6 +486,13 @@
 }
 .workspace-folder:hover { background: var(--surface-2); }
 .workspace-folder-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.workspace-folder-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .workspace-folder-count { font-size: 10px; color: var(--text-muted); margin-left: auto; }
 
 .workspace-recent-item {
@@ -1313,5 +1345,67 @@
   .editor-context {
     width: 270px;
     min-width: 250px;
+  }
+}
+
+@media (max-width: 900px) {
+  .note-editor-page {
+    overflow: auto;
+  }
+
+  .editor-layout {
+    flex-direction: column;
+  }
+
+  .editor-center {
+    order: 1;
+    min-height: 52vh;
+  }
+
+  .editor-workspace {
+    order: 2;
+    width: 100%;
+    border-right: 0;
+    border-top: 1px solid var(--border);
+    max-height: 34vh;
+    padding: 12px;
+  }
+
+  .editor-context {
+    order: 3;
+    width: 100%;
+    min-width: 0;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    max-height: none;
+  }
+
+  .editor-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  .editor-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .editor-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .editor-content {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .editor-topbar {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .editor-title-input {
+    flex-basis: 100%;
   }
 }

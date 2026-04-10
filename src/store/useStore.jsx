@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 const StoreContext = createContext(null);
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://notehive-backend-wi97.onrender.com';
 
 const STORAGE_KEYS = {
   notes: 'nh_notes',
