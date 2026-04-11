@@ -3,7 +3,7 @@
 NoteHive is a notes workspace built with React and Vite. It combines a note explorer, rich note editor, sticky notes board, knowledge base search, and a document viewer into one app.
 
 ## 🚀 Deployment Status
-**Frontend (Static):** Deployed to GitHub Pages - [https://YOUR_USERNAME.github.io/NoteHive-deploy](https://YOUR_USERNAME.github.io/NoteHive-deploy)
+**Frontend (Static):** Deployed to GitHub Pages - https://notehive-notes.netlify.app/
 
 **Backend (API):** Deploy to Render/Heroku + your Supabase project. See Backend Deployment below.
 
