@@ -3,9 +3,9 @@
 NoteHive is a notes workspace built with React and Vite. It combines a note explorer, rich note editor, sticky notes board, knowledge base search, and a document viewer into one app.
 
 ## 🚀 Deployment Status
-**Frontend (Static):** Deployed to GitHub Pages - https://notehive-notes.netlify.app/
+**Frontend (Production):** https://notehive-notes.netlify.app/
 
-**Backend (API):** Deploy to Render/Heroku + your Supabase project. See Backend Deployment below.
+**Backend (API):** Hosted on Render. See [Backend Deployment](#backend-deployment-rendercom---free) below.
 
 ## Features
 
@@ -55,12 +55,11 @@ Backend: `npm run server` → `http://localhost:4000`
 
 ## Deployment Guide
 
-### Frontend (GitHub Pages)
+### Frontend (Netlify)
 
-1. `npm run build`
-2. `gh repo deploy [YOUR_USERNAME]/NoteHive-deploy --dir dist`
-
-Live at `https://YOUR_USERNAME.github.io/NoteHive-deploy`
+1. The project is already configured with `netlify.toml` for automatic deployments.
+2. Pushing to the `main` branch on GitHub will automatically trigger a new deployment.
+3. Live at: [https://notehive-notes.netlify.app/](https://notehive-notes.netlify.app/)
 
 Update `VITE_API_URL` in production env via Pages settings or replace in src/ before build.
 
