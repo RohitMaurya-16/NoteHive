@@ -1,10 +1,11 @@
-import { useMemo, useRef, useState, useEffect } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FiBold, FiItalic, FiCode, FiList, FiChevronLeft, FiStar,
   FiClock, FiSave, FiPlay, FiEye, FiEdit, FiX,
 } from 'react-icons/fi';
 import { useStore } from '../store/useStore';
+import NoteContentRenderer from '../components/NoteContentRenderer';
 
 function relativeLabel(iso) {
   if (!iso) return 'just now';
@@ -38,23 +39,18 @@ export default function NoteEditor() {
   const [showHistory, setShowHistory] = useState(false);
   const [status, setStatus] = useState('');
   const [editorMode, setEditorMode] = useState('read');
-  const [localResources, setLocalResources] = useState([]);
-
-  // Load local resources from localStorage when activeNote changes
-  useEffect(() => {
-    if (!activeNote) {
-      setLocalResources([]);
-      return;
-    }
-    const localStorageKey = `nh_resources_${activeNote.id}`;
+  const activeNoteId = activeNote?.id;
+  let localResources = [];
+  if (activeNoteId) {
+    const localStorageKey = `nh_resources_${activeNoteId}`;
     try {
       const stored = localStorage.getItem(localStorageKey);
       const resources = stored ? JSON.parse(stored) : [];
-      setLocalResources(Array.isArray(resources) ? resources.filter(r => typeof r === 'string') : []);
+      localResources = Array.isArray(resources) ? resources.filter(r => typeof r === 'string') : [];
     } catch {
-      setLocalResources([]);
+      localResources = [];
     }
-  }, [activeNote?.id]);
+  }
 
   async function handleCreateFirstNote() {
     const created = await addNote();
@@ -66,6 +62,8 @@ export default function NoteEditor() {
   const currentFolder = activeNote?.folder || 'Notes';
   const starred = Boolean(activeNote?.starred);
   const savedLabel = `Saved ${relativeLabel(activeNote?.updatedAtISO)}`;
+  const wordCount = content.trim() ? content.trim().split(/\s+/).length : 0;
+  const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 220));
 
   const folderOptions = useMemo(() => {
     const map = new Map();
@@ -187,15 +185,14 @@ export default function NoteEditor() {
     
     const newUrl = url.trim();
     if (localResources.includes(newUrl)) {
-      setStatus('⚠ Resource already exists.');
+      setStatus('Resource already exists.');
       return;
     }
 
     const updated = [...localResources, newUrl];
     const localStorageKey = `nh_resources_${activeNote.id}`;
     localStorage.setItem(localStorageKey, JSON.stringify(updated));
-    setLocalResources(updated);
-    setStatus('✓ Resource saved locally.');
+    setStatus('Resource saved locally.');
   }
 
   async function removeResource(resourceUrl) {
@@ -203,8 +200,7 @@ export default function NoteEditor() {
     const updated = localResources.filter(url => url !== resourceUrl);
     const localStorageKey = `nh_resources_${activeNote.id}`;
     localStorage.setItem(localStorageKey, JSON.stringify(updated));
-    setLocalResources(updated);
-    setStatus('✓ Resource removed.');
+    setStatus('Resource removed.');
   }
 
   function openInKB() {
@@ -386,42 +382,56 @@ export default function NoteEditor() {
             </button>
             <div className="toolbar-sep" />
             <span className="editor-toolbar-info">
-              Length: {content.trim() ? content.trim().split(/\s+/).length : 0} words
+              Length: {wordCount} words
             </span>
           </div>
 
-          <div className="editor-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <div className="editor-content">
             {activeTab === 'Edit' && (
-              <textarea
-                ref={textareaRef}
-                style={{
-                  flex: 1,
-                  appearance: 'none',
-                  border: 'none',
-                  background: 'transparent',
-                  resize: 'none',
-                  outline: 'none',
-                  fontSize: 15,
-                  lineHeight: 1.6,
-                  color: 'var(--text-primary)',
-                  paddingBottom: 40,
-                  opacity: editorMode === 'read' ? 0.8 : 1,
-                  cursor: editorMode === 'read' ? 'default' : 'text',
-                }}
-                placeholder="Start typing your note here..."
-                value={content}
-                onChange={editorMode === 'read' ? undefined : handleContentChange}
-                readOnly={editorMode === 'read'}
-              />
+              editorMode === 'read'
+                ? (
+                  <article className="note-reading-panel">
+                    <header className="note-reading-hero">
+                      <h1 className="note-reading-title">{title || 'Untitled Note'}</h1>
+                      <div className="note-reading-meta">
+                        <span>{selectedFolder}</span>
+                        <span>{wordCount} words</span>
+                        <span>{readTimeMinutes} min read</span>
+                        <span>{savedLabel}</span>
+                      </div>
+                    </header>
+                    <div className="note-reading-content">
+                      <NoteContentRenderer
+                        content={content}
+                        emptyMessage="Nothing written yet. Switch to Write mode to start editing."
+                      />
+                    </div>
+                  </article>
+                )
+                : (
+                  <textarea
+                    ref={textareaRef}
+                    className="editor-textarea"
+                    placeholder="Start typing your note here..."
+                    value={content}
+                    onChange={handleContentChange}
+                  />
+                )
             )}
             {activeTab === 'Preview' && (
-              <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit' }}>{content || 'Nothing to preview yet.'}</pre>
+              <section className="note-preview-panel">
+                <div className="note-preview-label">Formatted Preview</div>
+                <NoteContentRenderer content={content} emptyMessage="Nothing to preview yet." />
+              </section>
             )}
             {activeTab === 'WYSIWYG (Theory)' && (
-              <div style={{ whiteSpace: 'pre-wrap' }}>{content || 'No theory content yet.'}</div>
+              <section className="note-preview-panel note-preview-theory">
+                <div className="note-preview-label">Theory Layout</div>
+                <NoteContentRenderer content={content} emptyMessage="No theory content yet." />
+              </section>
             )}
             {activeTab === 'Code Editor' && (
-              <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'var(--font-mono)' }}>{content || '// No code yet'}</pre>
+              <pre className="note-code-editor">{content || '// No code yet'}</pre>
             )}
           </div>
         </div>

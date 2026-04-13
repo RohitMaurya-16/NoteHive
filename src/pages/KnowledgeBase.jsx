@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+﻿import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   FiAlertCircle,
@@ -209,6 +209,7 @@ export default function KnowledgeBase() {
 
     return activeFilters.every(filter => filterChecks[filter]);
   }), [activeFilters, notes, query, recentNoteIds, scopes]);
+  const activeScopeCount = Object.values(scopes).filter(Boolean).length;
 
   function toggleFilter(filter) {
     setActiveFilters(prev => (
@@ -402,7 +403,13 @@ export default function KnowledgeBase() {
       <div className="kb-layout">
         <div className="kb-left">
           <div className="kb-search-panel">
-            <div className="kb-search-label">Ask anything from your notes</div>
+            <div className="kb-search-head">
+              <div className="kb-search-kicker">Knowledge Base</div>
+              <h2 className="kb-search-title">Search your notes like a polished research workspace.</h2>
+              <p className="kb-search-subtitle">
+                Blend titles, content, code blocks, and questions to surface the right note fast.
+              </p>
+            </div>
             <div className="kb-search-input-row">
               <input
                 placeholder="Explain normalization in DBMS or show SQL note"
@@ -430,6 +437,11 @@ export default function KnowledgeBase() {
                 </label>
               ))}
             </div>
+            <div className="kb-search-summary-row">
+              <span className="kb-summary-pill">{filteredNotes.length} matches</span>
+              <span className="kb-summary-pill">{activeScopeCount} scopes active</span>
+              <span className="kb-summary-pill">{activeFilters.length} filters</span>
+            </div>
             <div className="kb-filter-pills">
               {filterPills.map(filter => (
                 <span
@@ -449,7 +461,7 @@ export default function KnowledgeBase() {
 
           <div className="kb-results">
             <div className="kb-results-header">
-              <div className="kb-results-count">Search Results</div>
+              <div className="kb-results-count">Curated matches</div>
               <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Showing {filteredNotes.length} matching items</span>
             </div>
             {notesLoading && (
@@ -466,7 +478,7 @@ export default function KnowledgeBase() {
             {filteredNotes.map(note => (
               <div className="kb-result-item" key={note.id}>
                 <div className="kb-result-thumb">
-                  <div style={{ width: 56, height: 56, background: 'var(--surface-hover)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+                  <div className="kb-result-thumb-icon">
                     {getTypeIcon(note.type)}
                   </div>
                 </div>
@@ -478,13 +490,23 @@ export default function KnowledgeBase() {
                     </span>
                   </div>
                   <p className="kb-result-snippet">{note.preview || (note.content ? `${note.content.slice(0, 100)}...` : 'No content preview.')}</p>
-                  <div className="kb-result-meta">Added: {note.createdAt}</div>
+                  <div className="kb-result-meta">
+                    <span>{note.folder || 'Notes'}</span>
+                    <span>Added {note.createdAt}</span>
+                    <span>Updated {note.updatedAt}</span>
+                  </div>
                   <div className="kb-result-actions">
                     <button className="note-action-btn primary" onClick={() => handleOpenNote(note)}>Open Note</button>
                   </div>
                 </div>
               </div>
             ))}
+
+            {!notesLoading && filteredNotes.length === 0 && (
+              <div className="kb-empty-state">
+                No matching notes yet. Try a broader query or clear the active filters.
+              </div>
+            )}
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 12 }}>
               <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>
@@ -499,7 +521,7 @@ export default function KnowledgeBase() {
           <div className="kb-chat-header">
             <div className="chat-avatar" style={{ width: 28, height: 28, fontSize: 12 }}>N</div>
             <div className="kb-chat-title">NoteHive Assistant</div>
-            <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Internal-first RAG with fallback AI</div>
+            <div className="kb-chat-subtitle">Internal-first answers with optional web search</div>
             <div className="kb-chat-actions">
               <button className="btn btn-ghost btn-sm" onClick={saveTranscriptAsNote}>Save transcript</button>
               <button className="btn btn-ghost btn-sm" onClick={refineFromLastUserMessage}>Refine search</button>
@@ -519,7 +541,7 @@ export default function KnowledgeBase() {
                       </span>
                     </div>
                   )}
-                  {message.text}
+                  <div className="chat-message-text">{message.text}</div>
 
                   {message.citedNotes && message.citedNotes.length > 0 && (
                     <div className="chat-cited-notes">
@@ -609,7 +631,7 @@ export default function KnowledgeBase() {
               title="Toggle web search"
               style={{ whiteSpace: 'nowrap' }}
             >
-              {useWebSearch ? '🌐 Web ON' : '🌐 Web OFF'}
+              {useWebSearch ? 'Web Search On' : 'Web Search Off'}
             </button>
             <button className="btn btn-primary" onClick={sendMessage} disabled={chatLoading}>
               <FiSend size={13} /> Send
@@ -621,12 +643,12 @@ export default function KnowledgeBase() {
             Refine search: <span onClick={() => updateQuery('')}>Reset Query</span>
           </div>
           {status && (
-            <div style={{ padding: '0 16px 10px', fontSize: 11, color: status.includes('failed') ? 'var(--red)' : 'var(--accent)', background: 'var(--surface)' }}>
+            <div className="kb-status-banner" style={{ color: status.includes('failed') ? 'var(--red)' : 'var(--accent)' }}>
               {status}
             </div>
           )}
           {!notesLoading && notes.length === 0 && (
-            <div style={{ padding: '0 16px 10px', fontSize: 11, color: 'var(--orange)', background: 'var(--surface)', display: 'flex', gap: 6, alignItems: 'center' }}>
+            <div className="kb-status-banner" style={{ color: 'var(--orange)', display: 'flex', gap: 6, alignItems: 'center' }}>
               <FiAlertCircle size={12} />
               Add notes first to get internal-first answers.
             </div>
@@ -636,3 +658,4 @@ export default function KnowledgeBase() {
     </div>
   );
 }
+

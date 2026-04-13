@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FiPlus, FiCalendar, FiFilter, FiStar, FiPaperclip,
-  FiEdit2, FiMoreHorizontal, FiFeather, FiArchive, FiSearch, FiExternalLink,
+  FiEdit2, FiMoreHorizontal, FiFeather, FiArchive, FiSearch, FiExternalLink, FiX,
 } from 'react-icons/fi';
 import { useStore } from '../store/useStore';
 
@@ -135,7 +135,7 @@ export default function StickyBoard() {
   }
 
   return (
-    <div className="page">
+    <div className="page sticky-layout">
       <div className="sticky-topbar">
         {['Today', 'Archived', 'All'].map(tab => (
           <button
@@ -292,12 +292,20 @@ export default function StickyBoard() {
                 <button className="icon-btn" onClick={() => toggleStickyArchived(sticky.id)} title="Archive">
                   <FiArchive size={13} />
                 </button>
-                <button className="icon-btn" onClick={() => deleteSticky(sticky.id)} style={{ fontSize: 13 }} title="Delete">x</button>
+                <button className="icon-btn" onClick={() => deleteSticky(sticky.id)} style={{ fontSize: 13 }} title="Delete">
+                  <FiX size={13} />
+                </button>
                 <span className="sticky-card-time">{sticky.time}</span>
               </div>
             </div>
           );
         })}
+
+        {filteredStickies.length === 0 && (
+          <div className="sticky-empty-state">
+            No stickies match the current filters. Clear the filters or add a fresh sticky to get started.
+          </div>
+        )}
       </div>
 
       <div className="sticky-footer">

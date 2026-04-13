@@ -14,7 +14,7 @@ const navItems = [
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { addNote, setActiveNote } = useStore();
+  const { addNote, setActiveNote, notes } = useStore();
 
   async function handleNewNote() {
     const note = await addNote();
@@ -27,8 +27,13 @@ export default function Navbar() {
     <nav className="navbar">
       <button className="navbar-logo-btn" onClick={() => navigate('/')} aria-label="Open dashboard">
         <span className="navbar-logo">
-          <FiFeather size={16} />
-          NoteHive
+          <span className="navbar-logo-mark">
+            <FiFeather size={16} />
+          </span>
+          <span className="navbar-logo-copy">
+            <span className="navbar-logo-title">NoteHive</span>
+            <span className="navbar-logo-subtitle">Knowledge Studio</span>
+          </span>
         </span>
       </button>
 
@@ -45,6 +50,9 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-actions">
+        <span className="navbar-summary">
+          <strong>{notes.length}</strong> notes
+        </span>
         <button className="btn btn-primary btn-sm" onClick={handleNewNote}>
           <FiPlus size={13} />
           New Note

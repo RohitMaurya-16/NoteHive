@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
+import {
+  FiArrowRight, FiClock, FiFolder, FiStar, FiTrendingUp,
+} from 'react-icons/fi';
 import { useStore } from '../store/useStore';
 
 const weekData = [
@@ -35,10 +38,23 @@ const tagColorMap = { JS: '#f59e0b', DBMS: '#8b5cf6', Algorithms: '#10b981' };
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { notes, notesLoading, notesError, setActiveNote } = useStore();
+  const {
+    notes, notesLoading, notesError, setActiveNote, folders, stickies,
+  } = useStore();
   const [studyPlan, setStudyPlan] = useState(initialStudyPlan);
 
   const completedTasks = studyPlan.filter(task => task.done).length;
+  const starredNotes = notes.filter(note => note.starred).length;
+  const recentlyUpdated = notes.filter(note => {
+    const diff = Date.now() - new Date(note.updatedAtISO).getTime();
+    return diff <= 7 * 24 * 60 * 60 * 1000;
+  }).length;
+  const heroStats = [
+    { label: 'Vault Notes', value: notes.length, hint: 'ready to review' },
+    { label: 'Starred', value: starredNotes, hint: 'priority references' },
+    { label: 'Folders', value: folders.length, hint: 'organized spaces' },
+    { label: 'Stickies', value: stickies.length, hint: 'quick captures' },
+  ];
 
   const recentNotes = notes.slice(0, 3).map((n, i) => ({
     id: n.id,
@@ -46,11 +62,7 @@ export default function Dashboard() {
     tag: n.folder,
     snippet: n.preview || 'No preview available...',
     date: `Edited ${n.updatedAt}`,
-    thumb: [
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=80&h=80&fit=crop',
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop',
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=80&h=80&fit=crop',
-    ][i % 3],
+    tone: ['amber', 'blue', 'green'][i % 3],
     originalNote: n,
   }));
 
@@ -69,14 +81,41 @@ export default function Dashboard() {
     <div className="page">
       <div className="dashboard-layout fade-in">
         <div className="dashboard-main">
-          <div className="flex items-center justify-between" style={{ marginBottom: 20 }}>
-            <div className="dashboard-welcome">
-              <h1>Welcome back, Rohit</h1>
-              <p>Quick snapshot of recent activity and suggested items to continue learning.</p>
+          <section className="dashboard-hero card">
+            <div className="dashboard-hero-copy">
+              <div className="dashboard-kicker">Personal knowledge vault</div>
+              <div className="dashboard-welcome">
+                <h1>Keep your study system sharp, readable, and easy to continue.</h1>
+                <p>Review recent notes, jump back into active topics, and keep momentum without digging through clutter.</p>
+              </div>
+              <div className="dashboard-hero-pills">
+                <span className="dashboard-pill"><FiTrendingUp size={12} /> {recentlyUpdated} updated this week</span>
+                <span className="dashboard-pill"><FiStar size={12} /> {starredNotes} priority notes</span>
+                <span className="dashboard-pill"><FiFolder size={12} /> {folders.length} active folders</span>
+              </div>
             </div>
+            <div className="dashboard-hero-stats">
+              {heroStats.map(stat => (
+                <div className="dashboard-stat-card" key={stat.label}>
+                  <div className="dashboard-stat-label">{stat.label}</div>
+                  <div className="dashboard-stat-value">{stat.value}</div>
+                  <div className="dashboard-stat-hint">{stat.hint}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <div className="dashboard-section-heading">
+            <div>
+              <div className="dashboard-section-kicker">Continue where you left off</div>
+              <h2>Recent notes</h2>
+            </div>
+            <button className="btn btn-ghost btn-sm" onClick={() => navigate('/explorer')}>
+              Open explorer <FiArrowRight size={13} />
+            </button>
           </div>
 
-          <div className="card" style={{ overflow: 'hidden' }}>
+          <div className="card dashboard-recent-card">
             <div className="recent-notes">
               {notesLoading && (
                 <div style={{ padding: 16, color: 'var(--text-muted)', fontSize: 12 }}>
@@ -94,29 +133,27 @@ export default function Dashboard() {
                   className="recent-note-item"
                   onClick={() => openNote(note.originalNote)}
                 >
-                  <div className="recent-note-thumb">
-                    <img src={note.thumb} alt={note.title} onError={event => { event.target.style.display = 'none'; }} />
+                  <div className={`recent-note-thumb recent-note-thumb-${note.tone}`}>
+                    <span>{note.tag.slice(0, 2).toUpperCase()}</span>
                   </div>
                   <div className="recent-note-info">
-                    <h3>{note.title}</h3>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                    <div className="recent-note-tag-row">
                       <span
                         className="tag"
                         style={{
-                          background: `${tagColorMap[note.tag] || '#6b7280'}22`,
+                          background: `${tagColorMap[note.tag] || '#6b7280'}18`,
                           color: tagColorMap[note.tag] || '#6b7280',
                           fontSize: 10,
                         }}
                       >
                         {note.tag}
                       </span>
+                      <span className="recent-note-date-inline"><FiClock size={11} /> {note.date}</span>
                     </div>
-                    <p className="snippet" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
-                      - {note.snippet}
-                    </p>
+                    <h3>{note.title}</h3>
+                    <p className="snippet">{note.snippet}</p>
                   </div>
                   <div className="recent-note-meta">
-                    <div>{note.date}</div>
                     <button
                       className="open-btn"
                       onClick={event => {
@@ -124,7 +161,7 @@ export default function Dashboard() {
                         openNote(note.originalNote);
                       }}
                     >
-                      Open
+                      Open <FiArrowRight size={12} />
                     </button>
                   </div>
                 </div>
@@ -139,7 +176,7 @@ export default function Dashboard() {
         </div>
 
         <div className="dashboard-sidebar">
-          <div className="dashboard-side-panel">
+          <div className="dashboard-side-panel card">
             <div className="flex items-center justify-between" style={{ marginBottom: 12 }}>
               <h2 style={{ margin: 0 }}>Pinned Topics</h2>
               <span style={{ fontSize: 12, color: 'var(--accent)', cursor: 'pointer' }} onClick={() => navigate('/explorer')}>
@@ -164,7 +201,7 @@ export default function Dashboard() {
             ))}
           </div>
 
-          <div className="dashboard-side-panel">
+          <div className="dashboard-side-panel card">
             <div className="flex items-center justify-between" style={{ marginBottom: 12 }}>
               <h2 style={{ margin: 0 }}>Study Plan</h2>
               <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>
