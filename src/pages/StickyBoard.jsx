@@ -153,6 +153,11 @@ export default function StickyBoard() {
           {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
         </div>
 
+        <div className="sticky-date-badge" style={{ background: 'var(--green-light)', color: 'var(--green)', border: '1px solid var(--green-light)' }}>
+          <FiFeather size={12} />
+          Private & Local Storage
+        </div>
+
         <div className="sticky-view-toggle">
           <span style={{ color: 'var(--text-muted)' }}>View</span>
           {['Compact', 'Expanded'].map(mode => (
