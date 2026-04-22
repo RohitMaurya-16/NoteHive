@@ -3,7 +3,6 @@ import { StoreProvider } from './store/useStore';
 import Dashboard from './pages/Dashboard';
 import NotesExplorer from './pages/NotesExplorer';
 import NoteEditor from './pages/NoteEditor';
-import StickyBoard from './pages/StickyBoard';
 import KnowledgeBase from './pages/KnowledgeBase';
 import MachineLearningSolution from './pages/MachineLearningSolution';
 import Profile from './pages/Profile';
@@ -30,7 +29,6 @@ export default function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/explorer" element={<NotesExplorer />} />
             <Route path="/editor" element={<NoteEditor />} />
-            <Route path="/sticky" element={<StickyBoard />} />
             <Route path="/kb" element={<KnowledgeBase />} />
             <Route path="/pdf-notes" element={<MachineLearningSolution />} />
             <Route path="/ml-solution" element={<Navigate to="/pdf-notes" replace />} />

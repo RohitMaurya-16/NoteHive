@@ -5,7 +5,6 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://notehive-backend-w
 
 const STORAGE_KEYS = {
   notes: 'nh_notes',
-  stickies: 'nh_stickies',
   folders: 'nh_folders',
   tags: 'nh_tags',
   collections: 'nh_collections',
@@ -13,7 +12,6 @@ const STORAGE_KEYS = {
 };
 
 const NOTE_TYPES = new Set(['code', 'theory', 'question']);
-const STICKY_COLORS = ['#fbbf24', '#60a5fa', '#34d399', '#f87171', '#a78bfa'];
 const DEFAULT_TAGS = ['JavaScript', 'optimization', 'DBMS', 'Algorithms', 'recursion', 'theory'];
 
 const DEFAULT_FOLDERS = [
@@ -30,8 +28,6 @@ const genId = () => Math.random().toString(36).slice(2, 10);
 const pickRandom = list => list[Math.floor(Math.random() * list.length)];
 
 const defaultNotes = [];
-
-const defaultStickies = [];
 
 async function apiRequest(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
@@ -193,24 +189,6 @@ function normalizeNote(note) {
   };
 }
 
-function normalizeSticky(sticky) {
-  const nowIso = new Date().toISOString();
-  const createdAtISO = toIsoDate(sticky?.createdAtISO || sticky?.createdAt, nowIso);
-  const updatedAtISO = toIsoDate(sticky?.updatedAtISO || sticky?.updatedAt, createdAtISO);
-  return {
-    id: sticky?.id || genId(),
-    title: typeof sticky?.title === 'string' && sticky.title.length ? sticky.title : 'New Sticky',
-    body: typeof sticky?.body === 'string' ? sticky.body : '',
-    color: sticky?.color || pickRandom(STICKY_COLORS),
-    tag: typeof sticky?.tag === 'string' && sticky.tag.trim() ? sticky.tag.trim() : 'Quick',
-    folder: typeof sticky?.folder === 'string' && sticky.folder.trim() ? sticky.folder.trim() : 'Notes',
-    starred: Boolean(sticky?.starred),
-    archived: Boolean(sticky?.archived),
-    createdAtISO,
-    updatedAtISO,
-    time: formatDateTime(updatedAtISO),
-  };
-}
 
 function normalizeFolder(folder) {
   if (!folder || typeof folder !== 'object') return null;
@@ -299,12 +277,6 @@ export function StoreProvider({ children }) {
     return true;
   };
 
-  const [stickies, setStickies] = useState(() => {
-    const loaded = safeLoad(STORAGE_KEYS.stickies, defaultStickies);
-    return Array.isArray(loaded) && loaded.length
-      ? loaded.map(normalizeSticky)
-      : defaultStickies.map(normalizeSticky);
-  });
 
   const [folderCatalog, setFolderCatalog] = useState(() => {
     const loaded = safeLoad(STORAGE_KEYS.folders, DEFAULT_FOLDERS);
@@ -396,9 +368,6 @@ export function StoreProvider({ children }) {
     [notes, activeNoteId],
   );
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.stickies, JSON.stringify(stickies));
-  }, [stickies]);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.folders, JSON.stringify(folderCatalog));
@@ -637,77 +606,6 @@ export function StoreProvider({ children }) {
     };
   }
 
-  function addSticky(data = {}) {
-    const sticky = normalizeSticky({
-      id: genId(),
-      title: data.title || 'New Sticky',
-      body: data.body || '',
-      color: data.color || pickRandom(STICKY_COLORS),
-      tag: data.tag || 'Quick',
-      folder: data.folder || 'Notes',
-      starred: Boolean(data.starred),
-      archived: Boolean(data.archived),
-      createdAtISO: toIsoDate(data.createdAtISO || data.createdAt, new Date().toISOString()),
-      updatedAtISO: toIsoDate(data.updatedAtISO || data.updatedAt, new Date().toISOString()),
-    });
-    setStickies(prev => [sticky, ...prev]);
-    addFolder(sticky.folder);
-    return sticky;
-  }
-
-  function updateSticky(id, data = {}, options = {}) {
-    const { touchUpdatedAt = true } = options;
-    let updated = null;
-    setStickies(prev => prev.map(sticky => {
-      if (sticky.id !== id) return sticky;
-      const next = normalizeSticky({
-        ...sticky,
-        ...data,
-        updatedAtISO: touchUpdatedAt
-          ? toIsoDate(data.updatedAtISO || data.updatedAt, new Date().toISOString())
-          : sticky.updatedAtISO,
-      });
-      updated = next;
-      return next;
-    }));
-    if (updated?.folder) addFolder(updated.folder);
-    return updated;
-  }
-
-  function deleteSticky(id) {
-    if (!window.confirm("Delete this sticky?")) return;
-    setStickies(prev => prev.filter(sticky => sticky.id !== id));
-  }
-
-  function toggleStickyStar(id) {
-    const current = stickies.find(sticky => sticky.id === id);
-    if (!current) return null;
-    return updateSticky(id, { starred: !current.starred }, { touchUpdatedAt: false });
-  }
-
-  function toggleStickyArchived(id) {
-    const current = stickies.find(sticky => sticky.id === id);
-    if (!current) return null;
-    return updateSticky(id, { archived: !current.archived }, { touchUpdatedAt: true });
-  }
-
-  async function convertStickyToNote(id, options = {}) {
-    const sticky = stickies.find(item => item.id === id);
-    if (!sticky) return null;
-
-    const note = await addNote({
-      title: sticky.title,
-      content: sticky.body,
-      preview: createPreview(sticky.body),
-      folder: options.folder || sticky.folder || 'Notes',
-      tags: normalizeTags(['sticky', sticky.tag]),
-      type: 'theory',
-      starred: sticky.starred,
-    });
-
-    if (note && options.deleteOriginal !== false) deleteSticky(id);
-    return note;
-  }
 
   function saveSmartCollection(name, query, filters = {}) {
     if (!requestAdminAccess('save collection')) return null;
@@ -731,7 +629,6 @@ export function StoreProvider({ children }) {
     notes,
     notesLoading,
     notesError,
-    stickies,
     folders,
     tags: availableTags,
     smartCollections,
@@ -746,12 +643,6 @@ export function StoreProvider({ children }) {
     setNoteStarred,
     duplicateNote,
     importNotes,
-    addSticky,
-    updateSticky,
-    deleteSticky,
-    toggleStickyStar,
-    toggleStickyArchived,
-    convertStickyToNote,
     saveSmartCollection,
     deleteSmartCollection,
     isAdmin,

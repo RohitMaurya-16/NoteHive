@@ -39,7 +39,7 @@ const tagColorMap = { JS: '#f59e0b', DBMS: '#8b5cf6', Algorithms: '#10b981' };
 export default function Dashboard() {
   const navigate = useNavigate();
   const {
-    notes, notesLoading, notesError, setActiveNote, folders, stickies,
+    notes, notesLoading, notesError, setActiveNote, folders,
   } = useStore();
   const [studyPlan, setStudyPlan] = useState(initialStudyPlan);
 
@@ -53,7 +53,6 @@ export default function Dashboard() {
     { label: 'Vault Notes', value: notes.length, hint: 'ready to review' },
     { label: 'Starred', value: starredNotes, hint: 'priority references' },
     { label: 'Folders', value: folders.length, hint: 'organized spaces' },
-    { label: 'Stickies', value: stickies.length, hint: 'quick captures' },
   ];
 
   const recentNotes = notes.slice(0, 3).map((n, i) => ({

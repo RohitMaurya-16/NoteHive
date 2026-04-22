@@ -5,7 +5,6 @@ import { useStore } from '../store/useStore';
 const navItems = [
   { label: 'Dashboard', to: '/', match: pathname => pathname === '/' },
   { label: 'Notes', to: '/explorer', match: pathname => pathname.startsWith('/explorer') || pathname.startsWith('/editor') },
-  { label: 'Sticky Board', to: '/sticky', match: pathname => pathname.startsWith('/sticky') },
   { label: 'Knowledge Base', to: '/kb', match: pathname => pathname.startsWith('/kb') },
   { label: 'PDF Notes', to: '/pdf-notes', match: pathname => pathname.startsWith('/pdf-notes') || pathname.startsWith('/ml-solution') },
   { label: 'Profile', to: '/profile', match: pathname => pathname.startsWith('/profile') },

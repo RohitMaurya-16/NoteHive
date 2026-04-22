@@ -6,7 +6,7 @@ import { useStore } from '../store/useStore';
 
 export default function Profile() {
   const fileInputRef = useRef(null);
-  const { notes, stickies, tags, folders, smartCollections, importNotes } = useStore();
+  const { notes, tags, folders, smartCollections, importNotes } = useStore();
   const [status, setStatus] = useState('');
 
   const starredNotes = useMemo(
@@ -22,7 +22,6 @@ export default function Profile() {
     const payload = {
       exportedAt: new Date().toISOString(),
       notes,
-      stickies,
       tags,
       folders,
       smartCollections,
@@ -83,11 +82,6 @@ export default function Profile() {
             <div className="profile-stat-hint">{starredNotes} starred references</div>
           </div>
           <div className="card profile-stat-card">
-            <div className="profile-stat-label">Sticky Notes</div>
-            <div className="profile-stat-value">{stickies.length}</div>
-            <div className="profile-stat-hint">Quick capture board items</div>
-          </div>
-          <div className="card profile-stat-card">
             <div className="profile-stat-label">Folders</div>
             <div className="profile-stat-value">{folders.length}</div>
             <div className="profile-stat-hint">Organized study spaces</div>
@@ -103,7 +97,7 @@ export default function Profile() {
           <article className="card profile-tool-card">
             <div className="profile-tool-kicker">Backup</div>
             <h2>Export a full workspace snapshot</h2>
-            <p>Download your notes, stickies, tags, folders, and smart collections as a single JSON backup.</p>
+            <p>Download your notes, tags, folders, and smart collections as a single JSON backup.</p>
             <button className="btn btn-primary" onClick={handleExportBackup}>
               <FiDownload size={14} /> Export Backup
             </button>
