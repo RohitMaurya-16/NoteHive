@@ -14,7 +14,7 @@ const navItems = [
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { addNote, setActiveNote, notes } = useStore();
+  const { addNote, setActiveNote, notes, isAdmin, requestAdminAccess, logout } = useStore();
 
   async function handleNewNote() {
     const note = await addNote();
@@ -50,13 +50,24 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-actions">
+        {isAdmin ? (
+          <button className="btn btn-ghost btn-sm" onClick={logout} style={{ color: 'var(--green)' }}>
+            Admin Active (Logout)
+          </button>
+        ) : (
+          <button className="btn btn-ghost btn-sm" onClick={() => requestAdminAccess('login')}>
+            Admin Login
+          </button>
+        )}
         <span className="navbar-summary">
           <strong>{notes.length}</strong> notes
         </span>
-        <button className="btn btn-primary btn-sm" onClick={handleNewNote}>
-          <FiPlus size={13} />
-          New Note
-        </button>
+        {isAdmin && (
+          <button className="btn btn-primary btn-sm" onClick={handleNewNote}>
+            <FiPlus size={13} />
+            New Note
+          </button>
+        )}
       </div>
     </nav>
   );

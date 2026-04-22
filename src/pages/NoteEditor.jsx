@@ -31,6 +31,7 @@ export default function NoteEditor() {
     notes,
     folders,
     setNoteStarred,
+    isAdmin,
   } = useStore();
 
   const [activeTab, setActiveTab] = useState('Edit');
@@ -248,8 +249,8 @@ export default function NoteEditor() {
           value={title}
           onChange={handleTitleChange}
           placeholder="Note title..."
-          disabled={editorMode === 'read'}
-          style={{ opacity: editorMode === 'read' ? 0.7 : 1, cursor: editorMode === 'read' ? 'default' : 'text' }}
+          disabled={editorMode === 'read' || !isAdmin}
+          style={{ opacity: (editorMode === 'read' || !isAdmin) ? 0.7 : 1, cursor: (editorMode === 'read' || !isAdmin) ? 'default' : 'text' }}
         />
         <div className="editor-tags">
           {(activeNote?.tags || []).slice(0, 3).map(tag => (
@@ -260,14 +261,14 @@ export default function NoteEditor() {
             value={selectedFolder}
             onChange={handleFolderChange}
             title="Note folder"
-            disabled={editorMode === 'read'}
-            style={{ opacity: editorMode === 'read' ? 0.7 : 1, cursor: editorMode === 'read' ? 'default' : 'pointer' }}
+            disabled={editorMode === 'read' || !isAdmin}
+            style={{ opacity: (editorMode === 'read' || !isAdmin) ? 0.7 : 1, cursor: (editorMode === 'read' || !isAdmin) ? 'default' : 'pointer' }}
           >
             {folderOptions.map(folder => (
               <option key={folder} value={folder}>{folder}</option>
             ))}
           </select>
-          <button className="btn btn-ghost btn-sm" onClick={handleCreateFolder} disabled={editorMode === 'read'}>+ Folder</button>
+          <button className="btn btn-ghost btn-sm" onClick={handleCreateFolder} disabled={editorMode === 'read' || !isAdmin}>+ Folder</button>
         </div>
         <select className="editor-lang-select" value={language} onChange={event => setLanguage(event.target.value)}>
           <option>English</option>
@@ -288,14 +289,17 @@ export default function NoteEditor() {
             className={`btn btn-sm editor-mode-btn ${editorMode === 'write' ? 'btn-primary' : 'btn-ghost'}`}
             onClick={() => setEditorMode('write')}
             title="Write Mode"
-            style={{ display: 'flex', alignItems: 'center', gap: 6 }}
+            disabled={!isAdmin}
+            style={{ display: 'flex', alignItems: 'center', gap: 6, opacity: isAdmin ? 1 : 0.5, cursor: isAdmin ? 'pointer' : 'not-allowed' }}
           >
             <FiEdit size={13} /> Write
           </button>
         </div>
-        <button className="btn btn-primary btn-sm" onClick={handleSave} disabled={editorMode === 'read'}>
-          <FiSave size={13} /> Save
-        </button>
+        {isAdmin && (
+          <button className="btn btn-primary btn-sm" onClick={handleSave} disabled={editorMode === 'read'}>
+            <FiSave size={13} /> Save
+          </button>
+        )}
         <button
           className="btn btn-ghost btn-sm"
           onClick={handleToggleStar}

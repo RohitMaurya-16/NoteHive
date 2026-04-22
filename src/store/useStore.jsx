@@ -759,6 +759,9 @@ export function StoreProvider({ children }) {
     convertStickyToNote,
     saveSmartCollection,
     deleteSmartCollection,
+    isAdmin,
+    requestAdminAccess,
+    logout: () => setIsAdmin(false),
     reloadNotes: loadNotesFromApi,
   };
 

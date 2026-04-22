@@ -18,7 +18,7 @@ const tagColorMap = {
 
 export default function NoteCard({ note }) {
   const navigate = useNavigate();
-  const { toggleStar, duplicateNote, deleteNote, setActiveNote } = useStore();
+  const { toggleStar, duplicateNote, deleteNote, setActiveNote, isAdmin } = useStore();
 
   const ti = typeIcon[note.type] || typeIcon.theory;
 
@@ -37,12 +37,14 @@ export default function NoteCard({ note }) {
           {ti.icon}
         </div>
         <h3>{note.title}</h3>
-        <button
-          className={`note-card-star${note.starred ? ' starred' : ''}`}
-          onClick={e => { e.stopPropagation(); toggleStar(note.id); }}
-        >
-          <FiStar size={14} fill={note.starred ? 'currentColor' : 'none'} />
-        </button>
+        {isAdmin && (
+          <button
+            className={`note-card-star${note.starred ? ' starred' : ''}`}
+            onClick={e => { e.stopPropagation(); toggleStar(note.id); }}
+          >
+            <FiStar size={14} fill={note.starred ? 'currentColor' : 'none'} />
+          </button>
+        )}
       </div>
 
       <div className="note-card-preview">
@@ -59,10 +61,12 @@ export default function NoteCard({ note }) {
 
       <div className="note-card-footer">
         <span className="note-card-date">Updated {note.updatedAt}</span>
-        <div className="note-card-actions">
-          <button className="note-action-btn" onClick={e => { e.stopPropagation(); duplicateNote(note.id); }}>Duplicate</button>
-          <button className="note-action-btn danger" onClick={e => { e.stopPropagation(); deleteNote(note.id); }}>Delete</button>
-        </div>
+        {isAdmin && (
+          <div className="note-card-actions">
+            <button className="note-action-btn" onClick={e => { e.stopPropagation(); duplicateNote(note.id); }}>Duplicate</button>
+            <button className="note-action-btn danger" onClick={e => { e.stopPropagation(); deleteNote(note.id); }}>Delete</button>
+          </div>
+        )}
       </div>
     </div>
   );
