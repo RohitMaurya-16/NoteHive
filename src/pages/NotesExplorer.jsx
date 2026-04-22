@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
-  FiFilter, FiGrid, FiList, FiChevronDown, FiSearch,
+  FiFilter, FiGrid, FiList, FiChevronDown, FiSearch, FiX,
 } from 'react-icons/fi';
 import NoteCard from '../components/NoteCard';
 import { useStore } from '../store/useStore';
@@ -29,6 +29,8 @@ export default function NotesExplorer() {
     deleteNote,
     duplicateNote,
     setNoteStarred,
+    deleteFolder,
+    isAdmin,
   } = useStore();
 
   const urlQuery = searchParams.get('q') || '';
@@ -99,6 +101,15 @@ export default function NotesExplorer() {
     setStatus(`Folder "${created.name}" created.`);
   }
 
+  function handleDeleteFolder(name) {
+    if (!window.confirm(`Are you sure you want to delete the folder "${name}"?`)) return;
+    const success = deleteFolder(name);
+    if (success) {
+      if (activeFolder === name) setActiveFolder(null);
+      setStatus(`Folder "${name}" deleted.`);
+    }
+  }
+
   function handleAddTag() {
     const tag = window.prompt('Tag name');
     if (!tag) return;
@@ -153,7 +164,17 @@ export default function NotesExplorer() {
               >
                 <div className="folder-dot" style={{ background: folder.color }} />
                 <span className="folder-name">{folder.name}</span>
-                <span className="folder-count">{folder.count}</span>
+                {isAdmin && (
+                  <button
+                    className="icon-btn"
+                    style={{ marginLeft: 'auto', padding: 4, visibility: 'inherit' }}
+                    onClick={e => { e.stopPropagation(); handleDeleteFolder(folder.name); }}
+                    title="Delete Folder"
+                  >
+                    <FiX size={12} />
+                  </button>
+                )}
+                <span className="folder-count" style={{ marginLeft: isAdmin ? 4 : 'auto' }}>{folder.count}</span>
               </div>
             ))}
           </div>

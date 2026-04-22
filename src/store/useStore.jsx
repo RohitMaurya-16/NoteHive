@@ -413,6 +413,13 @@ export function StoreProvider({ children }) {
     return created;
   }
 
+  function deleteFolder(name) {
+    if (!name) return false;
+    if (!requestAdminAccess(`delete folder "${name}"`)) return false;
+    setFolderCatalog(prev => prev.filter(f => f.name.toLowerCase() !== name.toLowerCase()));
+    return true;
+  }
+
   function addTag(tagName) {
     if (typeof tagName !== 'string' || !tagName.trim()) return null;
     const clean = tagName.trim();
@@ -635,6 +642,7 @@ export function StoreProvider({ children }) {
     activeNote,
     setActiveNote,
     addFolder,
+    deleteFolder,
     addTag,
     addNote,
     updateNote,
