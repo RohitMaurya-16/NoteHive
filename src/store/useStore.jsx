@@ -638,7 +638,6 @@ export function StoreProvider({ children }) {
   }
 
   function addSticky(data = {}) {
-    if (!requestAdminAccess('create sticky')) return null;
     const sticky = normalizeSticky({
       id: genId(),
       title: data.title || 'New Sticky',
@@ -657,7 +656,6 @@ export function StoreProvider({ children }) {
   }
 
   function updateSticky(id, data = {}, options = {}) {
-    if (!requestAdminAccess('update sticky')) return null;
     const { touchUpdatedAt = true } = options;
     let updated = null;
     setStickies(prev => prev.map(sticky => {
@@ -678,19 +676,16 @@ export function StoreProvider({ children }) {
 
   function deleteSticky(id) {
     if (!window.confirm("Delete this sticky?")) return;
-    if (!requestAdminAccess('delete sticky')) return;
     setStickies(prev => prev.filter(sticky => sticky.id !== id));
   }
 
   function toggleStickyStar(id) {
-    if (!requestAdminAccess('toggle sticky star')) return null;
     const current = stickies.find(sticky => sticky.id === id);
     if (!current) return null;
     return updateSticky(id, { starred: !current.starred }, { touchUpdatedAt: false });
   }
 
   function toggleStickyArchived(id) {
-    if (!requestAdminAccess('archive sticky')) return null;
     const current = stickies.find(sticky => sticky.id === id);
     if (!current) return null;
     return updateSticky(id, { archived: !current.archived }, { touchUpdatedAt: true });

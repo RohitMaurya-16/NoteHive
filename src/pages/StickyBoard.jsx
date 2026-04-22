@@ -202,7 +202,7 @@ export default function StickyBoard() {
             <option key={folder} value={folder}>{folder}</option>
           ))}
         </select>
-        {isAdmin && <button className="btn btn-ghost btn-sm" onClick={handleCreateFolder}>New Folder</button>}
+        <button className="btn btn-ghost btn-sm" onClick={handleCreateFolder}>New Folder</button>
 
         <button 
           className="btn btn-primary btn-sm" 
@@ -281,25 +281,21 @@ export default function StickyBoard() {
                 )}
               </div>
               <div className="sticky-card-footer">
-                {isAdmin && (
-                  <>
-                    <button className="icon-btn" onClick={() => toggleStickyStar(sticky.id)} title="Star">
-                      <FiStar size={13} fill={sticky.starred ? 'currentColor' : 'none'} />
-                    </button>
-                    <button className="icon-btn" onClick={() => handleConvertSticky(sticky.id)} title="Convert to note">
-                      <FiPaperclip size={13} />
-                    </button>
-                    <button className="icon-btn" onClick={() => setEditingId(isEditing ? null : sticky.id)}>
-                      {isEditing ? 'Save' : <FiEdit2 size={13} />}
-                    </button>
-                    <button className="icon-btn" onClick={() => toggleStickyArchived(sticky.id)} title="Archive">
-                      <FiArchive size={13} />
-                    </button>
-                    <button className="icon-btn" onClick={() => deleteSticky(sticky.id)} style={{ fontSize: 13 }} title="Delete">
-                      <FiX size={13} />
-                    </button>
-                  </>
-                )}
+                <button className="icon-btn" onClick={() => toggleStickyStar(sticky.id)} title="Star">
+                  <FiStar size={13} fill={sticky.starred ? 'currentColor' : 'none'} />
+                </button>
+                <button className="icon-btn" onClick={() => handleConvertSticky(sticky.id)} title="Convert to note">
+                  <FiPaperclip size={13} />
+                </button>
+                <button className="icon-btn" onClick={() => setEditingId(isEditing ? null : sticky.id)}>
+                  {isEditing ? 'Save' : <FiEdit2 size={13} />}
+                </button>
+                <button className="icon-btn" onClick={() => toggleStickyArchived(sticky.id)} title="Archive">
+                  <FiArchive size={13} />
+                </button>
+                <button className="icon-btn" onClick={() => deleteSticky(sticky.id)} style={{ fontSize: 13 }} title="Delete">
+                  <FiX size={13} />
+                </button>
                 <span className="sticky-card-time">{sticky.time}</span>
               </div>
             </div>
@@ -359,11 +355,9 @@ export default function StickyBoard() {
         </div>
       </div>
 
-      {isAdmin && (
-        <button className="fab-btn" onClick={handleAddSticky}>
-          <FiPlus size={22} />
-        </button>
-      )}
+      <button className="fab-btn" onClick={handleAddSticky}>
+        <FiPlus size={22} />
+      </button>
     </div>
   );
 }
