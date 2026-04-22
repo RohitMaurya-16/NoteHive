@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FiBold, FiItalic, FiCode, FiList, FiChevronLeft, FiStar,
@@ -40,6 +40,12 @@ export default function NoteEditor() {
   const [status, setStatus] = useState('');
   const [editorMode, setEditorMode] = useState('read');
   const activeNoteId = activeNote?.id;
+
+  useEffect(() => {
+    setEditorMode('read');
+    setActiveTab('Edit');
+  }, [activeNoteId]);
+
   let localResources = [];
   if (activeNoteId) {
     const localStorageKey = `nh_resources_${activeNoteId}`;

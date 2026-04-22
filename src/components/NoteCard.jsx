@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { FiStar, FiCode, FiHelpCircle, FiBook } from 'react-icons/fi';
 import { useStore } from '../store/useStore';
+import NoteContentRenderer from './NoteContentRenderer';
 
 const typeIcon = {
   code: { icon: <FiCode size={14} />, bg: '#dbeafe', color: '#2563eb' },
@@ -44,11 +45,11 @@ export default function NoteCard({ note }) {
         </button>
       </div>
 
-      <p className="note-card-preview">
+      <div className="note-card-preview">
         {note.type === 'code'
           ? <code>{note.preview}</code>
-          : note.preview}
-      </p>
+          : <NoteContentRenderer content={(note.content || note.preview || '').substring(0, 300)} />}
+      </div>
 
       <div className="note-card-tags">
         {note.tags.map(t => (

@@ -60,7 +60,7 @@ function renderInlineWithBreaks(text, keyPrefix) {
 
 function startsNewBlock(line) {
   return (
-    /^#{1,4}\s+/.test(line)
+    /^#{1,6}\s+/.test(line)
     || /^>\s?/.test(line)
     || /^```/.test(line)
     || /^[-*]\s+/.test(line)
@@ -96,7 +96,7 @@ function parseBlocks(content) {
       continue;
     }
 
-    const headingMatch = line.trim().match(/^(#{1,4})\s+(.+)$/);
+    const headingMatch = line.trim().match(/^(#{1,6})\s+(.+)$/);
     if (headingMatch) {
       blocks.push({
         type: 'heading',
